@@ -8,7 +8,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
 
-var coffee = require('gulp-coffee');
 var uglify = require('gulp-uglify');
 
 var browserSync = require('browser-sync').create();
@@ -150,9 +149,8 @@ gulp.task('css', function(){
 
 // Scripts
 gulp.task('scripts', function(){
-  return gulp.src(['./src/js/**/*.js', './src/coffee/**/*.coffee'])
+  return gulp.src('./src/js/**/*.js')
     // .pipe(newer('./dest/js'))
-    .pipe(gulpIf('**/*.coffee', coffee()))
     .pipe(concat('scripts.js'))
     .pipe(gulpIf(!isDevelopment, combine(
       uglify(),
@@ -174,7 +172,7 @@ gulp.task('watch', function() {
   gulp.watch('./src/img/**/*.*', ['img']);
   gulp.watch('./src/styles/**/*.scss', ['sass']);
   // gulp.watch('./src/styles/**/*.css', ['css']);
-  gulp.watch(['./src/js/**/*.js', './src/coffee/**/*.coffee'], ['scripts']);
+  gulp.watch('./src/js/**/*.js', ['scripts']);
 })
 
 gulp.task('serve', function(){
